@@ -130,7 +130,7 @@ end
 
 # helper method for accessing an array of all the players from both teams
 def all_players
-  game_hash[:home][:players] + game_hash[:away][:players]
+  game_hash.fetch_values(:away, :home).map{|type| type[:players]}.flatten
 end
 
 def num_points_scored(player_name)
@@ -173,8 +173,8 @@ def player_numbers(team_name)
 end
 
 def player_stats(player_name)
-  all_players.find do |player| 
-    player[:player_name] == player_name 
+  all_players.find do |player|
+    player[:player_name] == player_name
   end
 end
 
